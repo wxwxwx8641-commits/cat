@@ -1,11 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>我的小网页</title>
+  <title>给你的小世界</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #171923;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: appear 2s ease both, breathe 7s ease-in-out 2s infinite;
+    }
+
+    .glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at center,
+        transparent 40%,
+        rgba(10, 12, 25, 0.22) 100%
+      );
+    }
+
+    .star {
+      position: absolute;
+      color: white;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      animation: twinkle 4s ease-in-out infinite;
+      text-shadow: 0 0 8px white;
+    }
+
+    .star:nth-child(2) {
+      top: 18%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .star:nth-child(3) {
+      top: 30%;
+      right: 18%;
+      animation-delay: 1.5s;
+    }
+
+    .star:nth-child(4) {
+      bottom: 22%;
+      left: 28%;
+      animation-delay: 2.5s;
+    }
+
+    .star:nth-child(5) {
+      bottom: 16%;
+      right: 25%;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0.6) rotate(0deg);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.3) rotate(45deg);
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>我的网页</h1>
+  <div class="scene">
+    <img
+      class="main-image"
+      src="./scene2026-07-21212631.png"
+      alt="我的小世界"
+    >
+
+    <div class="glow"></div>
+    <div class="star">✦</div>
+    <div class="star">✧</div>
+    <div class="star">✦</div>
+    <div class="star">✧</div>
+  </div>
 </body>
 </html>
