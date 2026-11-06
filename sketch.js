@@ -80,11 +80,13 @@ function draw() {
   }
 }
 
-// 点击图片上半部分，生成随机星星
-function mousePressed() {
+// 统一处理鼠标点击和手机触屏
+function createStarsAt(x, y) {
+
+  // 只允许点击图片上半部分
   if (
-    mouseX < imgX || mouseX > imgX + imgW ||
-    mouseY < imgY || mouseY > imgY + imgH / 2
+    x < imgX || x > imgX + imgW ||
+    y < imgY || y > imgY + imgH / 2
   ) {
     return;
   }
@@ -93,8 +95,8 @@ function mousePressed() {
 
   for (let i = 0; i < count; i++) {
     stars.push({
-      x: constrain(random(mouseX - 40, mouseX + 40), imgX, imgX + imgW),
-      y: constrain(random(mouseY - 40, mouseY + 40), imgY, imgY + imgH / 2),
+      x: constrain(random(x - 40, x + 40), imgX, imgX + imgW),
+      y: constrain(random(y - 40, y + 40), imgY, imgY + imgH / 2),
       size: random(2, 6),
       speed: random(0.05, 0.15),
       phase: random(TWO_PI),
@@ -103,6 +105,19 @@ function mousePressed() {
   }
 }
 
+// 电脑鼠标点击
+function mousePressed() {
+  createStarsAt(mouseX, mouseY);
+}
+
+// 手机触屏
+function touchStarted() {
+  if (touches.length > 0) {
+    createStarsAt(touches[0].x, touches[0].y);
+  }
+
+  return false;
+}
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
