@@ -21,8 +21,24 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(windowWidth, windowHeight);
   imageMode(CORNER);
+
+  // 禁止手机浏览器把触摸当成滚动或缩放
+  canvas.elt.style.touchAction = "none";
+
+  // 直接监听画布上的手指或鼠标操作
+  canvas.elt.addEventListener("pointerdown", function(event) {
+    event.preventDefault();
+
+    let rect = canvas.elt.getBoundingClientRect();
+
+    // 将屏幕坐标转换成画布坐标
+    let x = (event.clientX - rect.left) * width / rect.width;
+    let y = (event.clientY - rect.top) * height / rect.height;
+
+    createStarsAt(x, y);
+  });
 }
 
 function draw() {
@@ -105,19 +121,7 @@ function createStarsAt(x, y) {
   }
 }
 
-// 电脑鼠标点击
-function mousePressed() {
-  createStarsAt(mouseX, mouseY);
-}
 
-// 手机触屏
-function touchStarted() {
-  if (touches.length > 0) {
-    createStarsAt(touches[0].x, touches[0].y);
-  }
-
-  return false;
-}
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
